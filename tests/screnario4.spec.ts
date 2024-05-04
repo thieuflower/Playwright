@@ -5,16 +5,16 @@ import { test, expect } from '@playwright/test';
 import { PlaywrightTestConfig } from '@playwright/test'
 
 test('Exploiting the SQL Injection', async ({ request }) => {
+  
   const login = await request.post(`/users/v1/login`, {
     data: {
-      username: 'thieuhoa',
+      username: 'flower',
       password: 'test1'
     },
   });
   expect(login.ok()).toBeTruthy();
   const token = await login.json()
   let accessToken = token.auth_token
-  
   const config: PlaywrightTestConfig = {
     use: {
       baseURL: 'http://localhost:5002',
@@ -25,7 +25,11 @@ test('Exploiting the SQL Injection', async ({ request }) => {
   };
 
   await test.step("Displays user by username", async () => {
-      const getUser = await request.get(`/users/v1/name1'`);
+      const getUser = await request.get(`/users/v1/name1'`,{
+        headers:{
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
       expect(getUser.status()).toBe(500);
       console.log(await getUser.json());
     });

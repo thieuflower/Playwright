@@ -7,10 +7,7 @@ const accessToken = '';
 
 const config: PlaywrightTestConfig = {
   use: {
-    baseURL: 'http://localhost:5002',
-    extraHTTPHeaders: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+    baseURL: 'http://localhost:5002'
   },
 };
 export default config;

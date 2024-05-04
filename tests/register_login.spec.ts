@@ -1,5 +1,4 @@
 
-
 import { test, expect } from '@playwright/test';
 import { PlaywrightTestConfig } from '@playwright/test';
 const accessToken = '';
@@ -16,11 +15,17 @@ export default config;
 
 test('Register new user', async ({ request }) => {
   const register = await request.post(`/users/v1/register`, {
-    data: {
-      username: 'flower',
+    data:[ {
+      username: 'hoathieu',
       password : 'test1',
-      email: 'flowerthieu@gmail.com'
+      email: 'hoathieu@gmail.com'
     },
+    {
+      username: 'hoahoa',
+      password : 'test1',
+      email: 'hoahoa@gmail.com'
+    }
+  ]
   });
   expect(register.ok()).toBeTruthy();
 });
@@ -28,7 +33,7 @@ test('Register new user', async ({ request }) => {
 test('Login', async ({ request }) => {
   const login = await request.post(`/users/v1/login`, {
     data: {
-      username: 'flower',
+      username: 'thieuhoa',
       password : 'test1',
     },
   });
